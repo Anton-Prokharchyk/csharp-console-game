@@ -2,8 +2,10 @@ namespace Game
 {
     class Arrow
     {
-        static private int locationX = 0;
-        static private int locationY = 0;
+        private int locationX = 0;
+        private int locationY = 0;
+        public bool isMoving = false;
+        static private string shape = ">";
         public Arrow(int coordX, int coordY)
         {
             locationX = coordX;
@@ -14,7 +16,7 @@ namespace Game
             get => locationX;
             set
             {
-                locationX = value;
+                if (value > 0) locationX = value;
             }
         }
         public int LocationY
@@ -22,8 +24,21 @@ namespace Game
             get => locationY;
             set
             {
-                locationY = value;
+                if (value > 0) locationY = value;
             }
+        }
+        public string Shape
+        {
+            get => shape;
+            set
+            {
+                shape = value;
+            }
+        }
+        public void Move()
+        {
+            // if (isMoving) locationX++;
+            locationX++;
         }
     }
 }

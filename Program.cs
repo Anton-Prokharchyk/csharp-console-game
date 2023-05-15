@@ -12,6 +12,7 @@
         static private int MapY = 10;
         static private string Keycap = "";
         static private decimal time = 0;
+        static private List<Arrow> Objects = new List<Arrow> { };
 
         static void Main()
         {
@@ -58,20 +59,22 @@
                     {
                         // string RainbowLine = myarr[RainbowLineIndex];
                         // RainbowLine[indexOfRainbow] = ">";
-                        Arrow arrow = new Arrow(4, 7);
-                        int arrowY = arrow.LocationY;
-                        int arrowX = arrow.LocationX;
-                        if (pixeledMap[arrowY][arrowX + 1] != "|")
+
+                        Objects.Add(new Arrow(4, 7));
+                        Keycap = "";
+
+                    }
+
+                    for (var i = 0; i < Objects.Count; i++)
+                    {
+                        if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
                         {
-                            arrowX++;
-                            pixeledMap[arrowY][arrowX] = ">";
+                            Objects[i].Move();
+                            pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].Shape;
                         }
                         else
                         {
-                            // System.Console.WriteLine(Keycap);
-                            Keycap = "";
-                            arrow.LocationY = 7;
-                            arrow.LocationX = 4;
+                            Objects.Remove(Objects[i]);
                         }
                     }
                     string generatedMap = generateMap(pixeledMap);
