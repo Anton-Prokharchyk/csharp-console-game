@@ -1,18 +1,17 @@
 ﻿namespace Game
 {
-    public enum Codes
+    public enum KeycapMoves
     {
-        MOVE = 1,
-        TURN = 2,
-        STOP = 3
+        UpArrow,
+        F,
     }
     public class Game
     {
-        static private int MapX = 70;
-        static private int MapY = 10;
         static private string Keycap = "";
-        static private decimal time = 0;
+        static private decimal GameTime = 0;
         static private List<Arrow> Objects = new List<Arrow> { };
+
+        static private List<string> Keycaps = new List<string> { };
 
         static void Main()
         {
@@ -37,31 +36,36 @@
             //         System.Console.WriteLine(indexOfRainbow);
             //     }
             // }
-
-            DateTimeOffset moment = DateTimeOffset.UtcNow;
-            decimal unixTimestampMillisecodns = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
-            // System.Console.WriteLine(unixTimestampMillisecodns);
-
+            init();
 
             while (Keycap != "Escape")
             {
                 DateTimeOffset nowOffset = getNowDateTimeOffset();
                 decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(nowOffset);
-                if (Decimal.Round(unixTimestampMillisecodns, 1) != Decimal.Round(nowUnixTimestamp, 1))
+                if (Decimal.Round(GameTime, 1) != Decimal.Round(nowUnixTimestamp, 1))
                 {
 
-                    System.Console.Clear();
-                    unixTimestampMillisecodns = nowUnixTimestamp;
-                    string[][] pixeledMap = generatePixelMap();
-
+                    GameTime = nowUnixTimestamp;
+                    string[][] pixeledMap = Map.generatePixelMap();
                     keyPressListener();
-                    if (Keycap == "F")
+
+                    if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
                         // string RainbowLine = myarr[RainbowLineIndex];
                         // RainbowLine[indexOfRainbow] = ">";
 
                         Objects.Add(new Arrow(4, 7));
-                        Keycap = "";
+                        System.Console.WriteLine(Keycap);
+
+                    }
+
+                    if (Keycaps.Contains(KeycapMoves.UpArrow.ToString()))
+                    {
+                        // string RainbowLine = myarr[RainbowLineIndex];
+                        // RainbowLine[indexOfRainbow] = ">";
+
+                        Objects.Add(new Arrow(4, 7));
+                        System.Console.WriteLine(Keycap);
 
                     }
 
@@ -77,7 +81,9 @@
                             Objects.Remove(Objects[i]);
                         }
                     }
-                    string generatedMap = generateMap(pixeledMap);
+                    string generatedMap = Map.generateMap(pixeledMap);
+                    Keycaps.Clear();
+                    System.Console.Clear();
                     render(generatedMap);
                 }
 
@@ -93,51 +99,22 @@
         }
         static private void init()
         {
+            DateTimeOffset moment = DateTimeOffset.UtcNow;
+            GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
 
         }
         static private void keyPressListener()
         {
             if (System.Console.KeyAvailable)
             {
-                Keycap = System.Console.ReadKey(true).Key.ToString();
+                var keycap = System.Console.ReadKey(true).Key.ToString();
+                Keycaps.Add(keycap);
+                System.Console.WriteLine(keycap);
                 // System.Console.Beep(370, 200);
             }
         }
 
-        static public string[][] generatePixelMap()
-        {
 
-            string[][] pixelesMap = new string[MapY][];
-
-            for (int i = 0; i < pixelesMap.Length; i++)
-            {
-                // generate and fill columns
-                string[] line = new string[MapX];
-                for (int j = 0; j < line.Length; j++)
-                {
-                    // generate and fill lines
-                    if (i + 1 == pixelesMap.Length)
-                    { line[j] = "_"; }
-                    else if (j != 0 && j + 1 != line.Length)
-                    { line[j] = "-"; }
-                    if (j == 0 || j + 1 == line.Length)
-                    { line[j] = "|"; }
-                }
-                pixelesMap[i] = line;
-            }
-            return pixelesMap;
-        }
-        static public string generateMap(string[][] pixelsMap)
-        {
-            string[] generatedMapShape = new string[MapY];
-
-            for (int i = 0; i < MapY; i++)
-            {
-                generatedMapShape[i] = string.Join("", pixelsMap[i]);
-            }
-            return string.Join("\n", generatedMapShape);
-
-        }
 
 
         static public decimal getUnixTimestampMillisecondsFromDateTimeOffset(DateTimeOffset time)
