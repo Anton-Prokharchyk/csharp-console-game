@@ -21,7 +21,7 @@ namespace Game
                     if (i + 1 == pixelesMap.Length)
                     { line[j] = "_"; }
                     else if (j != 0 && j + 1 != line.Length)
-                    { line[j] = "-"; }
+                    { line[j] = " "; }
                     if (j == 0 || j + 1 == line.Length)
                     { line[j] = "|"; }
                 }
