@@ -9,7 +9,7 @@
     public class Game
     {
         static private string Keycap = "";
-        static private Weapon? Weapon;
+        static private Weapon Weapon;
         static private decimal GameTime = 0;
         static private List<Arrow> Objects = new List<Arrow> { };
 
@@ -35,15 +35,27 @@
                     GameTime = nowUnixTimestamp;
                     string[][] pixeledMap = Map.generatePixelMap();
                     keyPressListener();
-                    pixeledMap[Weapon.WeaponLocationY][Weapon.WeaponLocationX] = Weapon.Shape;
-                    pixeledMap[Weapon.headLocationY][Weapon.headLocationX] = Weapon.head;
-                    pixeledMap[Weapon.body1LocationY][Weapon.body1LocationX] = Weapon.body1;
-                    pixeledMap[Weapon.body2LocationY][Weapon.body2LocationX] = Weapon.body2;
-                    pixeledMap[Weapon.body3LocationY][Weapon.body3LocationX] = Weapon.body3;
-                    pixeledMap[Weapon.leg1LocationY][Weapon.leg1LocationX] = Weapon.leg1;
-                    pixeledMap[Weapon.leg2LocationY][Weapon.leg2LocationX] = Weapon.leg2;
-                    pixeledMap[Weapon.ballsLocationY][Weapon.ballsLocationX] = Weapon.balls;
-                    pixeledMap[Weapon.armLocationY][Weapon.armLocationX] = Weapon.arm;
+
+                    for (var i = 0; i < Weapon.shapy.Length; i++) {
+
+                        for(var j = 0; j < Weapon.shapy[i].Length; j++) {
+                            if (Weapon.shapy[i][j] != " "){
+                                pixeledMap[Weapon.startPointY + i][Weapon.startPointX + j] = Weapon.shapy[i][j];
+                            }
+                        }
+                    }
+
+
+
+                    // pixeledMap[Weapon.WeaponLocationY][Weapon.WeaponLocationX] = Weapon.Shape;
+                    // pixeledMap[Weapon.headLocationY][Weapon.headLocationX] = Weapon.head;
+                    // pixeledMap[Weapon.body1LocationY][Weapon.body1LocationX] = Weapon.body1;
+                    // pixeledMap[Weapon.body2LocationY][Weapon.body2LocationX] = Weapon.body2;
+                    // pixeledMap[Weapon.body3LocationY][Weapon.body3LocationX] = Weapon.body3;
+                    // pixeledMap[Weapon.leg1LocationY][Weapon.leg1LocationX] = Weapon.leg1;
+                    // pixeledMap[Weapon.leg2LocationY][Weapon.leg2LocationX] = Weapon.leg2;
+                    // pixeledMap[Weapon.ballsLocationY][Weapon.ballsLocationX] = Weapon.balls;
+                    // pixeledMap[Weapon.armLocationY][Weapon.armLocationX] = Weapon.arm;
 
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
@@ -85,9 +97,9 @@
                             Objects.Remove(Objects[i]);
                         }
                     }
+                    System.Console.Clear();
                     string generatedMap = Map.generateMap(pixeledMap);
                     Keycaps.Clear();
-                    System.Console.Clear();
                     render(generatedMap);
                 }
 
