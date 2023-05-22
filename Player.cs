@@ -1,41 +1,42 @@
 namespace Game
 {
-    class Weapon
+    class Player
     {
         
-        private int weaponLocationX;
-        private int weaponLocationY;
-
-        public string[][] shapy = new string[][] {
-            new string[]{"}"},
+        private int playerLocationX;
+        private int playerLocationY;
+        public string[][] shapy = new string[3][] {
+            new string[3]{" ","o"," "},
+            new string[3]{"[","s","]"},
+            new string[3]{"/","'","\\"}
         };
-
-        public int startPointY = 7;
         public int startPointX = 3;
+        public int startPointY = 7;
 
-        public bool isMoving;
         public int jumpStage;
+        public bool isMoving;
 
-        public Weapon(int coordX, int coordY)
+        public Player(int coordX, int coordY)
         {
-            weaponLocationX = coordX;
-            weaponLocationY = coordY;
+            playerLocationX = coordX;
+            playerLocationY = coordY;
+
         }
-        public int WeaponLocationX
+        public int PlayerLocationX
         {
-            get => WeaponLocationX;
+            get => PlayerLocationX;
             set
             {
-                if (value > 0) WeaponLocationX = value;
+                if (value > 0) PlayerLocationX = value;
             }
         }
-        public int WeaponLocationY
+        public int PlayerLocationY
         {
 
-            get => WeaponLocationX;
+            get => PlayerLocationX;
             set
             {
-                if (value > 0) WeaponLocationX = value;
+                if (value > 0) PlayerLocationX = value;
             }
         }
         public void Move() 
