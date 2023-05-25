@@ -2,7 +2,7 @@ namespace Game
 {
     class Weapon
     {
-        
+
         private int weaponLocationX;
         private int weaponLocationY;
 
@@ -38,7 +38,7 @@ namespace Game
                 if (value > 0) WeaponLocationX = value;
             }
         }
-        public void Move() 
+        public void Move()
         {
             jumpStage++;
             switch (jumpStage)

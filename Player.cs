@@ -2,44 +2,25 @@ namespace Game
 {
     class Player
     {
-        
-        private int playerLocationX;
-        private int playerLocationY;
+
         public string[][] shapy = new string[3][] {
-            new string[3]{" ","o"," "},
+            new string[3]{"/","'","\\"},
             new string[3]{"[","s","]"},
-            new string[3]{"/","'","\\"}
+            new string[3]{" ","o"," "}
         };
-        public int startPointX = 3;
-        public int startPointY = 7;
+        public int startPointX;
+        public int startPointY;
 
         public int jumpStage;
         public bool isMoving;
 
         public Player(int coordX, int coordY)
         {
-            playerLocationX = coordX;
-            playerLocationY = coordY;
+            startPointX = coordX;
+            startPointY = coordY;
 
         }
-        public int PlayerLocationX
-        {
-            get => PlayerLocationX;
-            set
-            {
-                if (value > 0) PlayerLocationX = value;
-            }
-        }
-        public int PlayerLocationY
-        {
-
-            get => PlayerLocationX;
-            set
-            {
-                if (value > 0) PlayerLocationX = value;
-            }
-        }
-        public void Move() 
+        public void Jump()
         {
             jumpStage++;
             switch (jumpStage)

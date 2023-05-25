@@ -10,18 +10,14 @@
     {
         static private string Keycap = "";
         static private Weapon Weapon;
+        static private Player Player;
         static private decimal GameTime = 0;
-        static private List<Arrow> Objects = new List<Arrow> { };
 
+        static private List<Arrow> Objects = new List<Arrow> { };
         static private List<string> Keycaps = new List<string> { };
         static void Main()
         {
 
-            /*
-             o
-            [s]-}
-            /*\
-            */
             System.Console.WriteLine("/");
             init();
 
@@ -36,33 +32,20 @@
                     string[][] pixeledMap = Map.generatePixelMap();
                     keyPressListener();
 
-                    for (var i = 0; i < Weapon.shapy.Length; i++) {
+                    for (var i = 0; i < Player.shapy.Length; i++)
+                    {
 
-                        for(var j = 0; j < Weapon.shapy[i].Length; j++) {
-                            if (Weapon.shapy[i][j] != " "){
-                                pixeledMap[Weapon.startPointY + i][Weapon.startPointX + j] = Weapon.shapy[i][j];
+                        for (var j = 0; j < Player.shapy[i].Length; j++)
+                        {
+                            if (Player.shapy[i][j] != " ")
+                            {
+                                pixeledMap[Player.startPointY - i][Player.startPointX + j] = Player.shapy[i][j];
                             }
                         }
                     }
 
-
-
-                    // pixeledMap[Weapon.WeaponLocationY][Weapon.WeaponLocationX] = Weapon.Shape;
-                    // pixeledMap[Weapon.headLocationY][Weapon.headLocationX] = Weapon.head;
-                    // pixeledMap[Weapon.body1LocationY][Weapon.body1LocationX] = Weapon.body1;
-                    // pixeledMap[Weapon.body2LocationY][Weapon.body2LocationX] = Weapon.body2;
-                    // pixeledMap[Weapon.body3LocationY][Weapon.body3LocationX] = Weapon.body3;
-                    // pixeledMap[Weapon.leg1LocationY][Weapon.leg1LocationX] = Weapon.leg1;
-                    // pixeledMap[Weapon.leg2LocationY][Weapon.leg2LocationX] = Weapon.leg2;
-                    // pixeledMap[Weapon.ballsLocationY][Weapon.ballsLocationX] = Weapon.balls;
-                    // pixeledMap[Weapon.armLocationY][Weapon.armLocationX] = Weapon.arm;
-
-
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
-                        // string RainbowLine = myarr[RainbowLineIndex];
-                        // RainbowLine[indexOfRainbow] = ">";
-
                         var arrow = new Arrow(Weapon.WeaponLocationX, Weapon.WeaponLocationY);
                         arrow.isMoving = true;
                         Objects.Add(arrow);
@@ -75,18 +58,24 @@
                     {
                         // string RainbowLine = myarr[RainbowLineIndex];
                         // RainbowLine[indexOfRainbow] = ">";
-                        Weapon.isMoving = true;
+                        Player.isMoving = true;
 
 
                     }
 
-                    if (Weapon.isMoving == true)
+                    if (Player.isMoving == true)
                     {
-                        Weapon.Move();
+                        Player.Jump();
                     }
 
                     for (var i = 0; i < Objects.Count; i++)
                     {
+
+
+
+
+
+
                         if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
                         {
                             Objects[i].Move();
@@ -118,6 +107,7 @@
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
             Weapon = new Weapon(5, 8);
+            Player = new Player(1, 6);
         }
         static private void keyPressListener()
         {
