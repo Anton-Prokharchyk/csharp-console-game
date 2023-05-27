@@ -27,22 +27,23 @@
             {
                 DateTimeOffset nowOffset = getNowDateTimeOffset();
                 decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(nowOffset);
+
                 if (Decimal.Round(GameTime, 1) != Decimal.Round(nowUnixTimestamp, 1))
                 {
 
                     GameTime = nowUnixTimestamp;
+
                     string[][] pixeledMap = Map.generatePixelMap();
+
                     keyPressListener();
 
-
                     PrerenderEngine.Prerender(renderableObjects, pixeledMap);
-
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
                         var arrow = new Arrow();
                         arrow.isMoving = true;
-                        renderableObjects.Add(arrow);
+                        // renderableObjects.Add(arrow);
 
                         System.Console.WriteLine(Keycap);
 
@@ -50,11 +51,7 @@
 
                     if (Keycaps.Contains(KeycapMoves.UpArrow.ToString()))
                     {
-                        // string RainbowLine = myarr[RainbowLineIndex];
-                        // RainbowLine[indexOfRainbow] = ">";
                         Player.isMoving = true;
-
-
                     }
 
                     if (Player.isMoving == true)
@@ -95,9 +92,9 @@
         {
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
-            Weapon = new Weapon();
-            Player = new Player();
-            renderableObjects.Add(Weapon);
+            // Weapon = new Weapon();
+            Player = new Player(new Jumpable());
+            // renderableObjects.Add(Weapon);
             renderableObjects.Add(Player);
 
         }

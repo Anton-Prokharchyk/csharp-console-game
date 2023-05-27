@@ -12,7 +12,8 @@ namespace Game
                     {
                         if (entity.shape[i][j] != " ")
                         {
-                            prerenderableView[entity.startPointY - i][entity.startPointX + j] = entity.shape[i][j];
+                            prerenderableView[entity.Point["Y"] - i][entity.Point["X"] + j] = entity.shape[i][j];
+
                         }
                     }
                 }
