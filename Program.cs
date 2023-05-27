@@ -5,27 +5,25 @@
     {
         UpArrow,
         F,
+        Escape
     }
     public class Game
     {
         static private string Keycap = "";
-        static private Weapon? Weapon;
+        static private Weapon Weapon;
+        static private Player Player;
         static private decimal GameTime = 0;
-        static private List<Arrow> Objects = new List<Arrow> { };
 
+        static private List<IRenderable> Objects = new List<IRenderable> { };
         static private List<string> Keycaps = new List<string> { };
         static void Main()
         {
 
-            /*
-             o
-            [s]-}
-            /*\
-            */
             System.Console.WriteLine("/");
             init();
 
-            while (Keycap != "Escape")
+
+            while (!Keycaps.Contains(KeycapMoves.Escape.ToString()))
             {
                 DateTimeOffset nowOffset = getNowDateTimeOffset();
                 decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(nowOffset);
@@ -35,23 +33,14 @@
                     GameTime = nowUnixTimestamp;
                     string[][] pixeledMap = Map.generatePixelMap();
                     keyPressListener();
-                    pixeledMap[Weapon.WeaponLocationY][Weapon.WeaponLocationX] = Weapon.Shape;
-                    pixeledMap[Weapon.headLocationY][Weapon.headLocationX] = Weapon.head;
-                    pixeledMap[Weapon.body1LocationY][Weapon.body1LocationX] = Weapon.body1;
-                    pixeledMap[Weapon.body2LocationY][Weapon.body2LocationX] = Weapon.body2;
-                    pixeledMap[Weapon.body3LocationY][Weapon.body3LocationX] = Weapon.body3;
-                    pixeledMap[Weapon.leg1LocationY][Weapon.leg1LocationX] = Weapon.leg1;
-                    pixeledMap[Weapon.leg2LocationY][Weapon.leg2LocationX] = Weapon.leg2;
-                    pixeledMap[Weapon.ballsLocationY][Weapon.ballsLocationX] = Weapon.balls;
-                    pixeledMap[Weapon.armLocationY][Weapon.armLocationX] = Weapon.arm;
+
+
+                    PrerenderEngine.Prerender(Objects, pixeledMap);
 
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
-                        // string RainbowLine = myarr[RainbowLineIndex];
-                        // RainbowLine[indexOfRainbow] = ">";
-
-                        var arrow = new Arrow(Weapon.WeaponLocationX, Weapon.WeaponLocationY);
+                        var arrow = new Arrow();
                         arrow.isMoving = true;
                         Objects.Add(arrow);
 
@@ -63,31 +52,32 @@
                     {
                         // string RainbowLine = myarr[RainbowLineIndex];
                         // RainbowLine[indexOfRainbow] = ">";
-                        Weapon.isMoving = true;
+                        Player.isMoving = true;
 
 
                     }
 
-                    if (Weapon.isMoving == true)
+                    if (Player.isMoving == true)
                     {
-                        Weapon.Move();
+                        Player.Jump();
                     }
 
-                    for (var i = 0; i < Objects.Count; i++)
-                    {
-                        if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
-                        {
-                            Objects[i].Move();
-                            pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].Shape;
-                        }
-                        else
-                        {
-                            Objects.Remove(Objects[i]);
-                        }
-                    }
+                    // for (var i = 0; i < Objects.Count; i++)
+                    // {
+
+                    //     if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
+                    //     {
+                    //         Objects[i].Move();
+                    //         pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].shape;
+                    //     }
+                    //     else
+                    //     {
+                    //         Objects.Remove(Objects[i]);
+                    //     }
+                    // }
+                    System.Console.Clear();
                     string generatedMap = Map.generateMap(pixeledMap);
                     Keycaps.Clear();
-                    System.Console.Clear();
                     render(generatedMap);
                 }
 
@@ -105,7 +95,11 @@
         {
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
-            Weapon = new Weapon(5, 8);
+            Weapon = new Weapon();
+            Player = new Player();
+            Objects.Add(Weapon);
+            Objects.Add(Player);
+
         }
         static private void keyPressListener()
         {
