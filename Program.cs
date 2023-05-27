@@ -17,7 +17,7 @@ namespace Game
         static private Player Player;
         static private decimal GameTime = 0;
 
-        static private List<IRenderable> Objects = new List<IRenderable> { };
+        static private List<IRenderable> renderableObjects = new List<IRenderable> { };
         static private List<string> Keycaps = new List<string> { };
         static void Main()
         {
@@ -38,14 +38,14 @@ namespace Game
                     keyPressListener();
 
 
-                    PrerenderEngine.Prerender(Objects, pixeledMap);
+                    PrerenderEngine.Prerender(renderableObjects, pixeledMap);
 
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
                         var arrow = new Arrow();
                         arrow.isMoving = true;
-                        Objects.Add(arrow);
+                        renderableObjects.Add(arrow);
 
                         System.Console.WriteLine(Keycap);
 
@@ -65,17 +65,17 @@ namespace Game
                         Player.Jump();
                     }
 
-                    // for (var i = 0; i < Objects.Count; i++)
+                    // for (var i = 0; i < renderableObjects.Count; i++)
                     // {
 
-                    //     if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
+                    //     if (pixeledMap[renderableObjects[i].LocationY][renderableObjects[i].LocationX + 1] != "|")
                     //     {
-                    //         Objects[i].Move();
-                    //         pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].shape;
+                    //         renderableObjects[i].Move();
+                    //         pixeledMap[renderableObjects[i].LocationY][renderableObjects[i].LocationX] = renderableObjects[i].shape;
                     //     }
                     //     else
                     //     {
-                    //         Objects.Remove(Objects[i]);
+                    //         renderableObjects.Remove(renderableObjects[i]);
                     //     }
                     // }
                     System.Console.Clear();
@@ -100,8 +100,8 @@ namespace Game
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
             Weapon = new Weapon();
             Player = new Player();
-            Objects.Add(Weapon);
-            Objects.Add(Player);
+            renderableObjects.Add(Weapon);
+            renderableObjects.Add(Player);
 
         }
         static private void keyPressListener()
