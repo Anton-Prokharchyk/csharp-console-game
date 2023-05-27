@@ -1,26 +1,25 @@
 namespace Game
 {
-    class Weapon : IRenderable
+    class Player : IRenderable
     {
 
-        public int startPointX { get; set; } = 3;
-        public int startPointY { get; set; } = 7;
-
-        public string[][] shape { get; set; } = new string[][] {
-            new string[]{"}"},
+        public string[][] shape { get; set; } = new string[3][] {
+            new string[3]{"/","'","\\"},
+            new string[3]{"[","s","]"},
+            new string[3]{" ","o"," "}
         };
-
-
-        public bool isMoving;
+        public int startPointX { get; set; } = 1;
+        public int startPointY { get; set; } = 6;
         public int jumpStage;
-        public Weapon() { }
-        public Weapon(int coordX, int coordY)
+        public bool isMoving;
+        public Player() { }
+        public Player(int coordX, int coordY)
         {
             startPointX = coordX;
             startPointY = coordY;
-        }
 
-        public void Move()
+        }
+        public void Jump()
         {
             jumpStage++;
             switch (jumpStage)

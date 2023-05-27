@@ -1,44 +1,38 @@
 namespace Game
 {
-    class Arrow
+    class Arrow : IRenderable
     {
-        private int locationX = 0;
-        private int locationY = 0;
+        public int startPointX { get; set; } = 4;
+        public int startPointY { get; set; } = 7;
         public bool isMoving = false;
-        static private string shape = ">";
+        public string[][] shape { get; set; } = new string[][] {
+            new string[]{">"},};
+        public Arrow() { }
         public Arrow(int coordX, int coordY)
         {
-            locationX = coordX;
-            locationY = coordY;
+            startPointX = coordX;
+            startPointY = coordY;
         }
-        public int LocationX
+        public int StartPointX
         {
-            get => locationX;
+            get => startPointX;
             set
             {
-                if (value > 0) locationX = value;
+                if (value > 0) startPointX = value;
             }
         }
-        public int LocationY
+        public int StartPointY
         {
-            get => locationY;
+            get => startPointY;
             set
             {
-                if (value > 0) locationY = value;
-            }
-        }
-        public string Shape
-        {
-            get => shape;
-            set
-            {
-                shape = value;
+                if (value > 0) startPointY = value;
             }
         }
         public void Move()
         {
-            // if (isMoving) locationX++;
-            locationX++;
+            // if (isMoving) startPointX++;
+            startPointX++;
         }
     }
 }
