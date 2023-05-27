@@ -1,4 +1,7 @@
-﻿namespace Game
+﻿using System;
+using System.Collections.Generic;
+
+namespace Game
 {
     // TODO: separate file
     public enum KeycapMoves
