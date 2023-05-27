@@ -5,6 +5,7 @@
     {
         UpArrow,
         F,
+        Escape
     }
     public class Game
     {
@@ -13,7 +14,7 @@
         static private Player Player;
         static private decimal GameTime = 0;
 
-        static private List<Arrow> Objects = new List<Arrow> { };
+        static private List<IRenderable> Objects = new List<IRenderable> { };
         static private List<string> Keycaps = new List<string> { };
         static void Main()
         {
@@ -21,7 +22,8 @@
             System.Console.WriteLine("/");
             init();
 
-            while (Keycap != "Escape")
+
+            while (!Keycaps.Contains(KeycapMoves.Escape.ToString()))
             {
                 DateTimeOffset nowOffset = getNowDateTimeOffset();
                 decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(nowOffset);
@@ -32,21 +34,13 @@
                     string[][] pixeledMap = Map.generatePixelMap();
                     keyPressListener();
 
-                    for (var i = 0; i < Player.shapy.Length; i++)
-                    {
 
-                        for (var j = 0; j < Player.shapy[i].Length; j++)
-                        {
-                            if (Player.shapy[i][j] != " ")
-                            {
-                                pixeledMap[Player.startPointY - i][Player.startPointX + j] = Player.shapy[i][j];
-                            }
-                        }
-                    }
+                    PrerenderEngine.Prerender(Objects, pixeledMap);
+
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
-                        var arrow = new Arrow(Weapon.WeaponLocationX, Weapon.WeaponLocationY);
+                        var arrow = new Arrow();
                         arrow.isMoving = true;
                         Objects.Add(arrow);
 
@@ -68,24 +62,19 @@
                         Player.Jump();
                     }
 
-                    for (var i = 0; i < Objects.Count; i++)
-                    {
+                    // for (var i = 0; i < Objects.Count; i++)
+                    // {
 
-
-
-
-
-
-                        if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
-                        {
-                            Objects[i].Move();
-                            pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].Shape;
-                        }
-                        else
-                        {
-                            Objects.Remove(Objects[i]);
-                        }
-                    }
+                    //     if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
+                    //     {
+                    //         Objects[i].Move();
+                    //         pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].shape;
+                    //     }
+                    //     else
+                    //     {
+                    //         Objects.Remove(Objects[i]);
+                    //     }
+                    // }
                     System.Console.Clear();
                     string generatedMap = Map.generateMap(pixeledMap);
                     Keycaps.Clear();
@@ -106,8 +95,11 @@
         {
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
-            Weapon = new Weapon(5, 8);
-            Player = new Player(1, 6);
+            Weapon = new Weapon();
+            Player = new Player();
+            Objects.Add(Weapon);
+            Objects.Add(Player);
+
         }
         static private void keyPressListener()
         {

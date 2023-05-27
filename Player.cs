@@ -1,19 +1,18 @@
 namespace Game
 {
-    class Player
+    class Player : IRenderable
     {
 
-        public string[][] shapy = new string[3][] {
+        public string[][] shape { get; set; } = new string[3][] {
             new string[3]{"/","'","\\"},
             new string[3]{"[","s","]"},
             new string[3]{" ","o"," "}
         };
-        public int startPointX;
-        public int startPointY;
-
+        public int startPointX { get; set; } = 1;
+        public int startPointY { get; set; } = 6;
         public int jumpStage;
         public bool isMoving;
-
+        public Player() { }
         public Player(int coordX, int coordY)
         {
             startPointX = coordX;
