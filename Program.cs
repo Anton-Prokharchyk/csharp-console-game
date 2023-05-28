@@ -7,12 +7,13 @@
         static private Player Player;
         static private decimal GameTime = 0;
 
-        static private List<IRenderable> renderableObjects = new List<IRenderable> { };
-        static private List<string> Keycaps = new List<string> { };
+        static private List<IRenderable> renderableObjects = new List<IRenderable>();
+        static private List<IMovable> movableObjects = new List<IMovable>();
+        static private List<string> Keycaps = new List<string>();
         static void Main()
         {
 
-            System.Console.WriteLine("/");
+            // System.Console.WriteLine("/");
             init();
 
 
@@ -34,9 +35,10 @@
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
-                        var arrow = new Arrow();
-                        arrow.isMoving = true;
-                        // renderableObjects.Add(arrow);
+                        var arrow = new Arrow(new Flyable());
+                        arrow.isFlying = true;
+                        renderableObjects.Add(arrow);
+                        movableObjects.Add(arrow);
 
                         System.Console.WriteLine(Keycap);
 
@@ -57,11 +59,7 @@
                         Player.isWalkingLeft = true;
                     }
 
-                    if (Player.isJumping || Player.isWalkingRight || Player.isWalkingLeft)
-                    {
-                        Player.Move();
-                    }
-
+                    MoveController.MakeMove(movableObjects);
                     // for (var i = 0; i < renderableObjects.Count; i++)
                     // {
 
@@ -98,7 +96,9 @@
             Weapon = new Weapon();
             Player = new Player(new Jumpable(), new WalkableRight(), new WalkableLeft());
             renderableObjects.Add(Weapon);
+            movableObjects.Add(Weapon);
             renderableObjects.Add(Player);
+            movableObjects.Add(Player);
 
         }
         static private void keyPressListener()

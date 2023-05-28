@@ -41,9 +41,9 @@ namespace Game
         public void Move()
         {
             // TODO: move out into separate method
-            _jumpable.Jump(Point, ref jumpStage, ref isJumping);
-            _walkableRight.WalkRight(Point, ref isWalkingRight);
-            _walkableLeft.WalkLeft(Point, ref isWalkingLeft);
+            this._jumpable.Jump(Point, ref jumpStage, ref isJumping);
+            this._walkableRight.WalkRight(Point, ref isWalkingRight);
+            this._walkableLeft.WalkLeft(Point, ref isWalkingLeft);
         }
     }
 }
