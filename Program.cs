@@ -1,14 +1,5 @@
 ﻿namespace Game
 {
-    // TODO: separate file
-    public enum KeycapMoves
-    {
-        UpArrow,
-        RightArrow,
-        LeftArrow,
-        F,
-        Escape
-    }
     public class Game
     {
         static private string Keycap = "";
