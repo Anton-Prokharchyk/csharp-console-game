@@ -1,6 +1,6 @@
 namespace Game
 {
-    class Weapon : IRenderable
+    class Weapon
     {
 
         public int startPointX { get; set; } = 3;

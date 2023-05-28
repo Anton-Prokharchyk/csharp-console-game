@@ -1,6 +1,6 @@
 namespace Game
 {
-    class Arrow : IRenderable
+    class Arrow
     {
         public int startPointX { get; set; } = 4;
         public int startPointY { get; set; } = 7;

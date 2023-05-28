@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Game
+﻿namespace Game
 {
     // TODO: separate file
     public enum KeycapMoves
     {
         UpArrow,
+        RightArrow,
+        LeftArrow,
         F,
         Escape
     }
@@ -17,7 +16,7 @@ namespace Game
         static private Player Player;
         static private decimal GameTime = 0;
 
-        static private List<IRenderable> Objects = new List<IRenderable> { };
+        static private List<IRenderable> renderableObjects = new List<IRenderable> { };
         static private List<string> Keycaps = new List<string> { };
         static void Main()
         {
@@ -30,22 +29,23 @@ namespace Game
             {
                 DateTimeOffset nowOffset = getNowDateTimeOffset();
                 decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(nowOffset);
+
                 if (Decimal.Round(GameTime, 1) != Decimal.Round(nowUnixTimestamp, 1))
                 {
 
                     GameTime = nowUnixTimestamp;
+
                     string[][] pixeledMap = Map.generatePixelMap();
+
                     keyPressListener();
 
-
-                    PrerenderEngine.Prerender(Objects, pixeledMap);
-
+                    PrerenderEngine.Prerender(renderableObjects, pixeledMap);
 
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
                         var arrow = new Arrow();
                         arrow.isMoving = true;
-                        Objects.Add(arrow);
+                        // renderableObjects.Add(arrow);
 
                         System.Console.WriteLine(Keycap);
 
@@ -53,29 +53,35 @@ namespace Game
 
                     if (Keycaps.Contains(KeycapMoves.UpArrow.ToString()))
                     {
-                        // string RainbowLine = myarr[RainbowLineIndex];
-                        // RainbowLine[indexOfRainbow] = ">";
-                        Player.isMoving = true;
-
-
+                        Player.isJumping = true;
                     }
 
-                    if (Player.isMoving == true)
+                    if (Keycaps.Contains(KeycapMoves.RightArrow.ToString()))
                     {
-                        Player.Jump();
+                        Player.isWalkingRight = true;
                     }
 
-                    // for (var i = 0; i < Objects.Count; i++)
+                    if (Keycaps.Contains(KeycapMoves.LeftArrow.ToString()))
+                    {
+                        Player.isWalkingLeft = true;
+                    }
+
+                    if (Player.isJumping || Player.isWalkingRight || Player.isWalkingLeft)
+                    {
+                        Player.Move();
+                    }
+
+                    // for (var i = 0; i < renderableObjects.Count; i++)
                     // {
 
-                    //     if (pixeledMap[Objects[i].LocationY][Objects[i].LocationX + 1] != "|")
+                    //     if (pixeledMap[renderableObjects[i].LocationY][renderableObjects[i].LocationX + 1] != "|")
                     //     {
-                    //         Objects[i].Move();
-                    //         pixeledMap[Objects[i].LocationY][Objects[i].LocationX] = Objects[i].shape;
+                    //         renderableObjects[i].Move();
+                    //         pixeledMap[renderableObjects[i].LocationY][renderableObjects[i].LocationX] = renderableObjects[i].shape;
                     //     }
                     //     else
                     //     {
-                    //         Objects.Remove(Objects[i]);
+                    //         renderableObjects.Remove(renderableObjects[i]);
                     //     }
                     // }
                     System.Console.Clear();
@@ -98,10 +104,10 @@ namespace Game
         {
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
-            Weapon = new Weapon();
-            Player = new Player();
-            Objects.Add(Weapon);
-            Objects.Add(Player);
+            // Weapon = new Weapon();
+            Player = new Player(new Jumpable(), new WalkableRight(), new WalkableLeft());
+            // renderableObjects.Add(Weapon);
+            renderableObjects.Add(Player);
 
         }
         static private void keyPressListener()
@@ -109,7 +115,8 @@ namespace Game
             if (System.Console.KeyAvailable)
             {
                 var keycap = System.Console.ReadKey(true).Key.ToString();
-                Keycaps.Add(keycap);
+                if (!Keycaps.Contains(keycap))
+                    Keycaps.Add(keycap);
                 System.Console.WriteLine(keycap);
                 // System.Console.Beep(370, 200);
             }
