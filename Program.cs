@@ -4,6 +4,8 @@
     public enum KeycapMoves
     {
         UpArrow,
+        RightArrow,
+        LeftArrow,
         F,
         Escape
     }
@@ -51,12 +53,22 @@
 
                     if (Keycaps.Contains(KeycapMoves.UpArrow.ToString()))
                     {
-                        Player.isMoving = true;
+                        Player.isJumping = true;
                     }
 
-                    if (Player.isMoving == true)
+                    if (Keycaps.Contains(KeycapMoves.RightArrow.ToString()))
                     {
-                        Player.Jump();
+                        Player.isWalkingRight = true;
+                    }
+
+                    if (Keycaps.Contains(KeycapMoves.LeftArrow.ToString()))
+                    {
+                        Player.isWalkingLeft = true;
+                    }
+
+                    if (Player.isJumping || Player.isWalkingRight || Player.isWalkingLeft)
+                    {
+                        Player.Move();
                     }
 
                     // for (var i = 0; i < renderableObjects.Count; i++)
@@ -93,7 +105,7 @@
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
             // Weapon = new Weapon();
-            Player = new Player(new Jumpable());
+            Player = new Player(new Jumpable(), new WalkableRight(), new WalkableLeft());
             // renderableObjects.Add(Weapon);
             renderableObjects.Add(Player);
 
@@ -103,7 +115,8 @@
             if (System.Console.KeyAvailable)
             {
                 var keycap = System.Console.ReadKey(true).Key.ToString();
-                Keycaps.Add(keycap);
+                if (!Keycaps.Contains(keycap))
+                    Keycaps.Add(keycap);
                 System.Console.WriteLine(keycap);
                 // System.Console.Beep(370, 200);
             }
