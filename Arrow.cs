@@ -31,7 +31,6 @@ namespace Game
         }
         public void Move()
         {
-            // if (isMoving) startPointX++;
             startPointX++;
         }
     }

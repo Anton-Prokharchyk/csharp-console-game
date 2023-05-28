@@ -95,9 +95,9 @@
         {
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
-            // Weapon = new Weapon();
+            Weapon = new Weapon();
             Player = new Player(new Jumpable(), new WalkableRight(), new WalkableLeft());
-            // renderableObjects.Add(Weapon);
+            renderableObjects.Add(Weapon);
             renderableObjects.Add(Player);
 
         }
@@ -109,7 +109,6 @@
                 if (!Keycaps.Contains(keycap))
                     Keycaps.Add(keycap);
                 System.Console.WriteLine(keycap);
-                // System.Console.Beep(370, 200);
             }
         }
 
