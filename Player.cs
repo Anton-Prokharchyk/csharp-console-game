@@ -45,25 +45,5 @@ namespace Game
             _walkableRight.WalkRight(Point, ref isWalkingRight);
             _walkableLeft.WalkLeft(Point, ref isWalkingLeft);
         }
-        // public void Jump()
-        // {
-        //     jumpStage++;
-        //     switch (jumpStage)
-        //     {
-        //         case 1:
-        //         case 2:
-        //             Point["Y"]--;
-        //             break;
-        //         case 3:
-        //         case 4:
-        //             Point["Y"]++;
-        //             break;
-        //         case 5:
-        //             isMoving = false;
-        //             jumpStage = 0;
-        //             break;
-
-        //     }
-        // }
     }
 }
