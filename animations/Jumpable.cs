@@ -1,13 +1,16 @@
 namespace Game
 {
-    class Jumpable
+    class Jumpable : IJumpable
     {
-        public void Jump(Dictionary<string, int> point, ref int jumpStage, ref bool isJumping)
+        public bool isJumping { get; set; }
+        public int jumpStage { get; set; }
+
+        public void jump(Dictionary<string, int> point)
         {
             if (isJumping)
             {
-                jumpStage++;
-                switch (jumpStage)
+                this.jumpStage++;
+                switch (this.jumpStage)
                 {
                     case 1:
                     case 2:
@@ -18,8 +21,8 @@ namespace Game
                         point["Y"]++;
                         break;
                     case 5:
-                        isJumping = false;
-                        jumpStage = 0;
+                        this.isJumping = false;
+                        this.jumpStage = 0;
                         break;
 
                 }

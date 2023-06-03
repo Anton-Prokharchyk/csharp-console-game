@@ -13,9 +13,7 @@
         static void Main()
         {
 
-            // System.Console.WriteLine("/");
             init();
-
 
             while (!Keycaps.Contains(KeycapMoves.Escape.ToString()))
             {
@@ -32,7 +30,6 @@
                     keyPressListener();
 
                     PrerenderEngine.Prerender(renderableObjects, pixeledMap);
-
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
                         var arrow = new Arrow(new Flyable());

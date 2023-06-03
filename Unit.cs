@@ -1,8 +1,10 @@
 namespace Game
 {
-    public abstract class Unit : IRenderable
+    public abstract class Unit : IRenderable, IMovable
     {
-        public string[][] shape { get; set; }
+        public string[][]? shape { get; set; }
         public Dictionary<string, int> point { get; set; }
+        public IJumpable jumpable { get; set; }
+        public void Move() { }
     }
 }
