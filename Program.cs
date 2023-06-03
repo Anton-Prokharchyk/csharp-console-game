@@ -46,14 +46,16 @@
                         Player.isJumping = true;
                     }
 
+                    // TODO: join walking logic 
                     if (Keycaps.Contains(KeycapMoves.RightArrow.ToString()))
                     {
-                        Player.isWalkingRight = true;
+                        Player.isWalking = true;
+                        Player.walkDirection = KeycapMoves.RightArrow;
                     }
-
                     if (Keycaps.Contains(KeycapMoves.LeftArrow.ToString()))
                     {
-                        Player.isWalkingLeft = true;
+                        Player.isWalking = true;
+                        Player.walkDirection = KeycapMoves.LeftArrow;
                     }
 
                     MoveController.MakeMove(movableObjects);
@@ -91,7 +93,7 @@
             DateTimeOffset moment = DateTimeOffset.UtcNow;
             GameTime = getUnixTimestampMillisecondsFromDateTimeOffset(moment);
             Weapon = new Weapon();
-            Player = new Player(new Jumpable(), new WalkableRight(), new WalkableLeft());
+            Player = new Player(new Jumpable(), new Walkable());
             renderableObjects.Add(Weapon);
             movableObjects.Add(Weapon);
             renderableObjects.Add(Player);

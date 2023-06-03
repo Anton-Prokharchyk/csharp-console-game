@@ -2,14 +2,7 @@ namespace Game
 {
     class Player : Unit, IMovable
     {
-        private WalkableRight _walkableRight;
-        private WalkableLeft _walkableLeft;
-
-        // public int jumpStage;
-        // public bool isJumping;
-        public bool isWalkingRight;
-        public bool isWalkingLeft;
-        public Player(Jumpable jumpable, WalkableRight walkableRight, WalkableLeft walkableLeft)
+        public Player(IJumpable jumpable, IWalkable walkable)
         {
             this.point = new Dictionary<string, int>() { { "X", 9 }, { "Y", 7 } };
             this.shape = new string[3][] {
@@ -18,20 +11,27 @@ namespace Game
             new string[3]{" ","o"," "}
         };
             this.jumpable = jumpable;
-            _walkableRight = walkableRight;
-            _walkableLeft = walkableLeft;
+            this.walkable = walkable;
         }
         public bool isJumping
         {
             get => jumpable.isJumping;
             set => jumpable.isJumping = value;
         }
+        public bool isWalking
+        {
+            set => walkable.isWalking = value;
+        }
+        public KeycapMoves walkDirection
+        {
+            set => walkable.walkDirection = value;
+        }
         public void Move()
         {
             // TODO: move out into separate method
             this.jumpable.jump(point);
-            this._walkableRight.WalkRight(point, ref isWalkingRight);
-            this._walkableLeft.WalkLeft(point, ref isWalkingLeft);
+            this.walkable.walk(point);
         }
     }
+
 }
