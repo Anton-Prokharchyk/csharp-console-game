@@ -1,24 +1,21 @@
 namespace Game
 {
-    class Weapon : IRenderable, IMovable
+    class Weapon : Unit, IMovable
     {
-        public string[][] shape { get; set; } = new string[][] {
-            new string[]{"}"},
-        };
-        public Dictionary<string, int> Point
+        public bool isMoving;
+        public int jumpStage;
+        public Weapon()
         {
-            get;
-            set;
-        } = new Dictionary<string, int>()
+            this.point = new Dictionary<string, int>()
         {
             {"X",5},
             {"Y",5},
 
         };
-
-        public bool isMoving;
-        public int jumpStage;
-        public Weapon() { }
+            this.shape = new string[][] {
+            new string[]{"}"},
+        };
+        }
 
         public void Move()
         {

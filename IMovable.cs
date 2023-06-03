@@ -2,7 +2,7 @@ namespace Game
 {
     public interface IMovable
     {
-        public Dictionary<string, int> Point { get; set; }
+        public Dictionary<string, int> point { get; set; }
         public void Move();
     }
 }
