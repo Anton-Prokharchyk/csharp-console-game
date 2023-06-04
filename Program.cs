@@ -30,6 +30,8 @@
                     keyPressListener();
 
                     PrerenderEngine.Prerender(renderableObjects, pixeledMap);
+
+                    // Move into a general InputController class
                     if (Keycaps.Contains(KeycapMoves.F.ToString()))
                     {
                         var arrow = new Arrow(new Flyable());
@@ -40,12 +42,10 @@
                         System.Console.WriteLine(Keycap);
 
                     }
-
                     if (Keycaps.Contains(KeycapMoves.UpArrow.ToString()))
                     {
                         Player.isJumping = true;
                     }
-
                     // TODO: join walking logic 
                     if (Keycaps.Contains(KeycapMoves.RightArrow.ToString()))
                     {
@@ -59,6 +59,8 @@
                     }
 
                     MoveController.MakeMove(movableObjects);
+
+                    // Add a colision class
                     // for (var i = 0; i < renderableObjects.Count; i++)
                     // {
 
@@ -72,6 +74,7 @@
                     //         renderableObjects.Remove(renderableObjects[i]);
                     //     }
                     // }
+
                     System.Console.Clear();
                     string generatedMap = Map.generateMap(pixeledMap);
                     Keycaps.Clear();
