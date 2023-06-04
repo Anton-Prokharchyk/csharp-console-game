@@ -2,6 +2,7 @@ namespace Game
 {
     class Player : Unit, IMovable
     {
+
         public Player(IJumpable jumpable, IWalkable walkable)
         {
             this.point = new Dictionary<string, int>() { { "X", 9 }, { "Y", 7 } };
@@ -13,24 +14,11 @@ namespace Game
             this.jumpable = jumpable;
             this.walkable = walkable;
         }
-        public bool isJumping
-        {
-            get => jumpable.isJumping;
-            set => jumpable.isJumping = value;
-        }
-        public bool isWalking
-        {
-            set => walkable.isWalking = value;
-        }
-        public KeycapMoves walkDirection
-        {
-            set => walkable.walkDirection = value;
-        }
-        public void Move()
+        public new void Move()
         {
             // TODO: move out into separate method
-            this.jumpable.jump(point);
-            this.walkable.walk(point);
+            this.performJump(point);
+            this.performWalk(point);
         }
     }
 
