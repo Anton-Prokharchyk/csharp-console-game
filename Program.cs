@@ -3,8 +3,8 @@
     public class Game
     {
         static private string Keycap = "";
-        static private Weapon Weapon;
-        static private Player Player;
+        static private Unit Weapon;
+        static private Unit Player;
         static private decimal GameTime = 0;
 
         static private List<IRenderable> renderableObjects = new List<IRenderable>();
@@ -95,7 +95,7 @@
             Weapon = new Weapon();
             Player = new Player(new Jumpable(), new Walkable());
             renderableObjects.Add(Weapon);
-            movableObjects.Add(Weapon);
+            // movableObjects.Add(Weapon);
             renderableObjects.Add(Player);
             movableObjects.Add(Player);
 
