@@ -3,6 +3,7 @@ namespace Game
     public abstract class Unit : IRenderable, IMovable
     {
         public string[][]? shape { get; set; }
+        // TODO: Create separate Point type class
         public Dictionary<string, int> point { get; set; }
         public IJumpable jumpable { get; set; }
         public IWalkable walkable { get; set; }
