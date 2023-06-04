@@ -6,7 +6,7 @@ namespace Game
         public KeycapMoves walkDirection { get; set; }
         public void walk()
         {
-            System.Console.WriteLine($"I cannot walk!");
+            System.Console.WriteLine("I cannot walk!");
         }
         public void walk(Dictionary<string, int> point) { }
     }
