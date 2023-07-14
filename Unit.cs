@@ -9,14 +9,17 @@ namespace Game
         public IWalkable walkable { get; set; }
         public bool isJumping
         {
+            get => jumpable.isJumping;
             set => jumpable.isJumping = value;
         }
         public bool isWalking
         {
+            get => walkable.isWalking;
             set => walkable.isWalking = value;
         }
         public KeycapMoves walkDirection
         {
+            get => walkable.walkDirection;
             set => walkable.walkDirection = value;
         }
         public void performJump(Dictionary<string, int> point)

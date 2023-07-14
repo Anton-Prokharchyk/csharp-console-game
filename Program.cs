@@ -17,8 +17,8 @@
 
             while (!Keycaps.Contains(KeycapMoves.Escape.ToString()))
             {
-                DateTimeOffset nowOffset = getNowDateTimeOffset();
-                decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(nowOffset);
+                Keycaps.Clear();
+                decimal nowUnixTimestamp = getUnixTimestampMillisecondsFromDateTimeOffset(getNowDateTimeOffset());
 
                 if (Decimal.Round(GameTime, 1) != Decimal.Round(nowUnixTimestamp, 1))
                 {
@@ -77,7 +77,6 @@
 
                     System.Console.Clear();
                     string generatedMap = Map.generateMap(pixeledMap);
-                    Keycaps.Clear();
                     render(generatedMap);
                 }
 
@@ -101,6 +100,7 @@
             // movableObjects.Add(Weapon);
             renderableObjects.Add(Player);
             movableObjects.Add(Player);
+
 
         }
         static private void keyPressListener()
