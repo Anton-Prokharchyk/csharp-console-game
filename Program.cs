@@ -77,7 +77,6 @@
 
                     System.Console.Clear();
                     string generatedMap = Map.generateMap(pixeledMap);
-                    // Keycaps.Clear();
                     render(generatedMap);
                 }
 
