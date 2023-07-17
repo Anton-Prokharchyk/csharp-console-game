@@ -5,6 +5,7 @@ namespace Game
         static public void Prerender(List<IRenderable> renderableEntities, string[][] prerenderableView)
         {
             foreach (IRenderable entity in renderableEntities)
+            {
                 for (var i = 0; i < entity.shape.Length; i++)
                 {
 
@@ -17,7 +18,7 @@ namespace Game
                         }
                     }
                 }
-
+            }
         }
     }
 }

@@ -19,11 +19,11 @@ namespace Game
                 {
                     // generate and fill lines
                     if (i + 1 == pixelesMap.Length)
-                    { line[j] = "_"; }
+                    { line[j] = "▔"; }
                     else if (j != 0 && j + 1 != line.Length)
                     { line[j] = " "; }
                     if (j == 0 || j + 1 == line.Length)
-                    { line[j] = "|"; }
+                    { line[j] = "┃"; }
                 }
                 pixelesMap[i] = line;
             }
